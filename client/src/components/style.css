@@ -1,0 +1,303 @@
+/* === Animated Background === */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #2e2f4f, #534c67, #5d586a, #3a3b4e);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    color: #f0f0f0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === Main Container === */
+.editor-container {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    overflow: hidden; /* Keep this to contain the main glassmorphic box */
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden; /* Keep this for overall layout containment */
+}
+
+.main-container.split {
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.editor-box,
+.draw-box {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    transition: all 0.4s ease;
+    /* REMOVED: overflow: hidden; from .editor-box */
+    /* This was causing sticky header issues. We want content INSIDE to scroll, not the whole box. */
+}
+
+.editor-box.full {
+    width: 100%;
+}
+
+.editor-box.half,
+.draw-box.half {
+    width: 50%;
+}
+
+/* === Editor Header (Sticky) === */
+.editor-header {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 2;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    margin-bottom: 16px;
+}
+
+/* === Text Editor Wrapper === */
+.text-editor-wrapper {
+    flex: 1; /* Takes all available space */
+    display: flex;
+    flex-direction: column;
+    /* CHANGED: Removed overflow: hidden; here. It was blocking the scrollbar. */
+    min-height: 0;
+    position: relative;
+}
+
+.text-editor-wrapper .ql-container {
+    flex: 1 !important; /* Make Quill's container take all available height */
+    display: flex;
+    flex-direction: column;
+    /* CHANGED: Removed overflow: hidden; here. It was blocking the scrollbar. */
+    background-color: transparent !important;
+    border: none;
+    min-height: 0 !important;
+    border-radius: 10px;
+}
+
+.text-editor-wrapper .ql-editor {
+    flex: 1; /* This makes the actual editable area fill the remaining space */
+    overflow-y: auto; /* THIS IS WHERE THE SCROLLBAR IS APPLIED */
+    padding: 16px;
+    font-size: 16px;
+    color: #f0f0f0;
+    line-height: 1.6;
+    min-height: 0 !important;
+    height: 100% !important;
+    background-color: transparent;
+
+    /* Scrollbar Styling - MADE MORE VISIBLE */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #00ff00 #000000; /* Firefox: BRIGHT GREEN thumb, BLACK track for clear visibility */
+}
+
+/* Webkit (Chrome, Safari) Scrollbar Styling - MADE MORE VISIBLE */
+.text-editor-wrapper .ql-editor::-webkit-scrollbar {
+    width: 10px; /* Wider for better visibility */
+}
+
+.text-editor-wrapper .ql-editor::-webkit-scrollbar-track {
+    background: #000000; /* Black track for strong contrast */
+    border-radius: 5px; /* Slightly more rounded */
+}
+
+.text-editor-wrapper .ql-editor::-webkit-scrollbar-thumb {
+    background-color: #00ff00; /* Bright green thumb */
+    border-radius: 5px; /* Rounded corners for the thumb */
+    border: 1px solid #00aa00; /* Small border for definition */
+}
+
+/* === Placeholder Fix === */
+.ql-container.ql-snow .ql-editor.ql-blank::before {
+    min-height: 0 !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: inherit !important;
+}
+
+/* === Quill Toolbar (Will stay visible above the scrolling editor) === */
+.text-editor-wrapper .ql-toolbar.ql-snow {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px 10px 0 0;
+    padding: 8px 10px;
+    flex-shrink: 0; /* CRITICAL: Ensures the toolbar does NOT shrink or scroll away */
+    z-index: 1;
+}
+
+/* === Quill Toolbar Colors (No change from your original) === */
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-stroke {
+    stroke: #f0f0f0;
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-fill {
+    fill: #f0f0f0;
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-picker-label {
+    color: #f0f0f0;
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-active .ql-stroke,
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-active .ql-fill,
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-selected .ql-stroke,
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-selected .ql-fill {
+    stroke: #7176f9;
+    fill: #7176f9;
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-picker-options .ql-picker-item {
+    color: #f0f0f0;
+}
+
+.text-editor-wrapper .ql-toolbar.ql-snow .ql-picker-options .ql-picker-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* === Button Area === */
+.button-area {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+/* === Button Style === */
+button {
+    padding: 10px 22px;
+    background: linear-gradient(to right, #7176f9, #c670e5);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(128, 100, 255, 0.2);
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #c670e5, #7176f9);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .editor-container {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .main-container.split {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .editor-box.half,
+    .draw-box.half {
+        width: 100%;
+    }
+
+    .editor-box, .draw-box {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .editor-header {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+
+    .text-editor-wrapper .ql-editor {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .button-area {
+        margin-top: 15px;
+        padding-bottom: 5px;
+    }
+
+    button {
+        padding: 9px 18px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .editor-container {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .editor-header {
+        font-size: 16px;
+    }
+
+    .text-editor-wrapper .ql-editor {
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

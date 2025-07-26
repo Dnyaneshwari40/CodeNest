@@ -1,24 +1,28 @@
-# ClimaSphere
+**CodeNest**
+---
+**Overview**
+---
+CodeNest is a MERN-stack based web application that combines a real-time text editor and a drawing canvas, offering an intuitive dual-interface workspace. It allows users to write and edit code or notes while simultaneously sketching diagrams or visual elements. With a toggle-based layout and responsive design, CodeNest is ideal for developers, educators, and creatives looking for an all-in-one sandbox environment.
+The platform is lightweight, modular, and easy to extend for more advanced features such as saving content, collaboration, or cloud sync.
+---
+**Features**
+- Real-time text editing interface built with React
 
-## Overview
+- Toggle to switch between full text view and split mode
 
-**ClimaSphere** is a weather forecasting web application that provides real-time weather data, forecasts, and temperature alerts for cities around the world. It leverages the OpenWeatherMap API and presents data in a clear, user-friendly interface. The platform also includes a visual danger level indicator and tracks recently searched cities for easy access.
+- Modular components for easy extension and maintenance
 
-This tool is ideal for individuals who want quick and accurate weather information with helpful UI enhancements.
+- Simple, clean, and responsive design
 
-## Features
+- Dynamic layout controlled with React state
+  ---
+**Technologies Used**
+- Programming Language: JavaScript (ES6+)
 
-- Search and display current weather conditions for any city
-- Show high/low temperatures, humidity, and weather descriptions
-- 5-day forecast visualization with daily averages
-- Dynamic danger level indicator based on temperature
-- Track and display recently searched cities
-- Responsive web interface
+- Frontend: React (via create-react-app)
 
-## Technologies Used
+- Backend: Node.js + Express (for future data persistence or collaboration features)
 
-- **Programming Language:** JavaScript
-- **Frontend:** HTML, CSS, JavaScript
-- **APIs:** OpenWeatherMap API
-- **Libraries:** socket.io (for real-time extension potential)
-- **Tools:** Git, GitHub for version control
+- Database: MongoDB (for saving notes/drawings in future versions)
+
+- Styling: CSS (custom styles)

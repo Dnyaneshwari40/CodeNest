@@ -2,8 +2,11 @@
 ---
 **Overview**
 ---
+
 CodeNest is a MERN-stack based web application that combines a real-time text editor and a drawing canvas, offering an intuitive dual-interface workspace. It allows users to write and edit code or notes while simultaneously sketching diagrams or visual elements. With a toggle-based layout and responsive design, CodeNest is ideal for developers, educators, and creatives looking for an all-in-one sandbox environment.
 The platform is lightweight, modular, and easy to extend for more advanced features such as saving content, collaboration, or cloud sync.
+
+
 ---
 **Features**
 - Real-time text editing interface built with React
@@ -14,7 +17,6 @@ The platform is lightweight, modular, and easy to extend for more advanced featu
 
 - Simple, clean, and responsive design
 
-- Dynamic layout controlled with React state
   ---
 **Technologies Used**
 - Programming Language: JavaScript (ES6+)
